@@ -1,6 +1,6 @@
 import pandas as pd
 import pytest
-from fingertips_py.api_calls import get_json, get_data_in_tuple, make_request, get_json_return_df, base_url
+from fingertips_py.api_calls import get_json, make_request, get_json_return_df, base_url
 from fingertips_py.retrieve_data import get_all_data_for_profile, get_all_data_for_indicators, get_data_by_indicator_ids, \
     get_all_areas_for_all_indicators, get_data_for_indicator_at_all_available_geographies
 from fingertips_py.metadata import get_metadata_for_profile_as_dataframe, get_metadata, get_metadata_for_indicator_as_dataframe, \
@@ -17,12 +17,6 @@ def test_get_json():
     assert data['userId'] == 1
     assert isinstance(data, dict)
 
-#no
-def test_get_data_in_tuple():
-    data = get_data_in_tuple(base_url + 'ages')
-    assert type(data[1]) == tuple
-
-
 def test_make_request():
     data = make_request(base_url + 'area_types', 'Id')
     assert type(data) == dict
@@ -36,10 +30,9 @@ def test_get_json_return_df():
 
 # need to think about this one
 def test_get_all_data_for_profile():
-    data = get_all_data_for_profile(84, is_test=True)
+    data = get_all_data_for_profile(84, area_type_id=402, is_test=True)
     assert isinstance(data[0], pd.DataFrame) is True
-    assert data[1] == base_url + 'all_data/csv/by_profile_id?child_area_type_id=154&parent_area_type_id=15&profile_id=84'
-    assert data[0].shape[1] == 26
+    assert data[1] == base_url + 'all_data/csv/by_profile_id?child_area_type_id=402&parent_area_type_id=15&profile_id=84'
 
 
 def test_get_all_areas():

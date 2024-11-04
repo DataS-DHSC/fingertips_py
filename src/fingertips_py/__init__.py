@@ -1,7 +1,7 @@
 
 __version__ = '0.4.0'
 
-from fingertips_py.api_calls import get_json, get_data_in_tuple, make_request
+from fingertips_py.api_calls import get_json, make_request
 from fingertips_py.retrieve_data import get_all_data_for_profile, get_all_data_for_indicators, get_data_by_indicator_ids, \
     get_all_areas_for_all_indicators, get_data_for_indicator_at_all_available_geographies
 from fingertips_py.metadata import get_metadata_for_profile_as_dataframe, get_metadata, get_metadata_for_indicator_as_dataframe, \

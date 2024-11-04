@@ -5,7 +5,7 @@ metadata.
 
 import pandas as pd
 from urllib.error import HTTPError, URLError
-from fingertips_py.api_calls import get_data_in_tuple, base_url, make_request, get_json, get_json_return_df, deal_with_url_error, get_data_in_dict
+from fingertips_py.api_calls import base_url, make_request, get_json, get_json_return_df, deal_with_url_error, get_data_in_dict
 
 
 def get_all_ages(is_test=False):
@@ -419,7 +419,7 @@ def get_metadata(indicator_ids=None, domain_ids=None, profile_ids=None):
         return df
     if indicator_ids and profile_ids:
         df = get_metadata_for_profile_as_dataframe(profile_ids)
-        df = pd.concat([df, get_metadata_for_profile_as_dataframe(indicator_ids)])
+        df = pd.concat([df, get_metadata_for_indicator_as_dataframe(indicator_ids)])
         return df
     if domain_ids and profile_ids:
         df = get_metadata_for_profile_as_dataframe(profile_ids)
