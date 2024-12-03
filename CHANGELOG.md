@@ -1,3 +1,6 @@
+# Fingertips_py V 0.4.2
+* No change for user. Fixed issue with displaying README on pypi.
+
 # Fingertips_py V 0.4.1
 * Function get_data_in_tuple has been removed.
 * Fixed bug in get_metadata when indicator_ids and profile_ids provided.
