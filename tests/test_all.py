@@ -41,21 +41,21 @@ def test_get_all_areas():
     assert isinstance(test_dict, dict) is True
     assert isinstance(first_dict, dict) is True
     assert isinstance(first_dict.get('Name'), str) is True
-    assert url == 'http://fingertips.phe.org.uk/api/area_types'
+    assert url == 'https://fingertips.phe.org.uk/api/area_types'
 
 
 def test_get_all_data_for_indicators():
     data, url = get_all_data_for_indicators([92949, 92998], area_type_id=102, is_test=True)
     assert isinstance(data, pd.DataFrame) is True
     assert data.shape[1] == 27
-    assert url == 'http://fingertips.phe.org.uk/api/all_data/csv/by_indicator_id?indicator_ids=92949,92998&child_area_type_id=102&parent_area_type_id=15'
+    assert url == 'https://fingertips.phe.org.uk/api/all_data/csv/by_indicator_id?indicator_ids=92949,92998&child_area_type_id=102&parent_area_type_id=15'
 
 
 def test_get_data_by_indicator_ids():
     data, url = get_data_by_indicator_ids([92949, 92998], 102, is_test=True)
     assert isinstance(data, pd.DataFrame) is True
     assert data.shape[1] == 27
-    assert url == 'http://fingertips.phe.org.uk/api/all_data/csv/by_indicator_id?indicator_ids=92949,92998&child_area_type_id=102&parent_area_type_id=15'
+    assert url == 'https://fingertips.phe.org.uk/api/all_data/csv/by_indicator_id?indicator_ids=92949,92998&child_area_type_id=102&parent_area_type_id=15'
 
 
 def test_get_all_areas_for_all_indicators():
@@ -105,14 +105,14 @@ def test_get_metadata_for_indicator_as_dataframe():
     data = get_metadata_for_indicator_as_dataframe(247, is_test=True)
     assert isinstance(data[0], pd.DataFrame) is True
     assert data[0].shape[1] == 32
-    assert data[1] == 'http://fingertips.phe.org.uk/api/indicator_metadata/csv/by_indicator_id?indicator_ids=247'
+    assert data[1] == 'https://fingertips.phe.org.uk/api/indicator_metadata/csv/by_indicator_id?indicator_ids=247'
 
 
 def test_get_metadata_for_domain_as_dataframe():
     data = get_metadata_for_domain_as_dataframe(1938132811, is_test=True)
     assert isinstance(data[0], pd.DataFrame) is True
     assert data[0].shape[1] == 32
-    assert data[1] == 'http://fingertips.phe.org.uk/api/indicator_metadata/csv/by_group_id?group_id=1938132811'
+    assert data[1] == 'https://fingertips.phe.org.uk/api/indicator_metadata/csv/by_group_id?group_id=1938132811'
 
 
 def test_get_all_value_notes():

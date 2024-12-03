@@ -98,6 +98,6 @@ def deal_with_url_error(url):
     return df
 
 
-base_url = 'http://fingertips.phe.org.uk/api/'
+base_url = 'https://fingertips.phe.org.uk/api/'
 
 
