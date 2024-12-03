@@ -41,7 +41,7 @@ def get_data_by_indicator_ids(indicator_ids, area_type_id, parent_area_type_id=1
         indicator_ids = str(indicator_ids)
     populated_url = url_suffix.format(indicator_ids, str(area_type_id), parent_area_type_id)
     try:
-        df = pd.read_csv(base_url + populated_url)
+        df = pd.read_csv(base_url + populated_url, low_memory = False)
     except URLError:
         df = deal_with_url_error(base_url + populated_url)
     if is_test:
@@ -70,10 +70,11 @@ def get_all_data_for_profile(profile_id, parent_area_type_id=15, area_type_id = 
         area_types = get_area_type_ids_for_profile(profile_id)
     df = pd.DataFrame()
     for area in area_types:
-        populated_url = f'all_data/csv/by_profile_id?child_area_type_id={area}\
-            &parent_area_type_id={parent_area_type_id}&profile_id={profile_id}'
+        populated_url = (f'all_data/csv/by_profile_id?child_area_type_id={area}&'
+                         f'parent_area_type_id={parent_area_type_id}&'
+                         f'profile_id={profile_id}')
         try:
-            df_returned = pd.read_csv(base_url + populated_url)
+            df_returned = pd.read_csv(base_url + populated_url, low_memory = False)
         except HTTPError:
             raise Exception('There has been a server error with Fingertips for this request. ')
         except URLError:
@@ -109,10 +110,11 @@ def get_all_data_for_indicators(indicators, area_type_id, parent_area_type_id=15
     else:
         indicators = str(indicators)
         
-    populated_url = f'all_data/csv/by_indicator_id?indicator_ids={indicators}&\
-        child_area_type_id={area_type_id}&parent_area_type_id={parent_area_type_id}'
+    populated_url = (f'all_data/csv/by_indicator_id?indicator_ids={indicators}&'
+                     f'child_area_type_id={area_type_id}&'
+                     f'parent_area_type_id={parent_area_type_id}')
     try:
-        df = pd.read_csv(base_url + populated_url)
+        df = pd.read_csv(base_url + populated_url, low_memory = False)
     except URLError:
         df = deal_with_url_error(base_url + populated_url)
     df.reset_index()

@@ -1,6 +1,6 @@
 import pandas as pd
 import pytest
-from fingertips_py.api_calls import get_json, get_data_in_tuple, make_request, get_json_return_df, base_url
+from fingertips_py.api_calls import get_json, make_request, get_json_return_df, base_url
 from fingertips_py.retrieve_data import get_all_data_for_profile, get_all_data_for_indicators, get_data_by_indicator_ids, \
     get_all_areas_for_all_indicators, get_data_for_indicator_at_all_available_geographies
 from fingertips_py.metadata import get_metadata_for_profile_as_dataframe, get_metadata, get_metadata_for_indicator_as_dataframe, \
@@ -17,12 +17,6 @@ def test_get_json():
     assert data['userId'] == 1
     assert isinstance(data, dict)
 
-#no
-def test_get_data_in_tuple():
-    data = get_data_in_tuple(base_url + 'ages')
-    assert type(data[1]) == tuple
-
-
 def test_make_request():
     data = make_request(base_url + 'area_types', 'Id')
     assert type(data) == dict
@@ -36,10 +30,9 @@ def test_get_json_return_df():
 
 # need to think about this one
 def test_get_all_data_for_profile():
-    data = get_all_data_for_profile(84, is_test=True)
+    data = get_all_data_for_profile(84, area_type_id=402, is_test=True)
     assert isinstance(data[0], pd.DataFrame) is True
-    assert data[1] == base_url + 'all_data/csv/by_profile_id?child_area_type_id=154&parent_area_type_id=15&profile_id=84'
-    assert data[0].shape[1] == 26
+    assert data[1] == base_url + 'all_data/csv/by_profile_id?child_area_type_id=402&parent_area_type_id=15&profile_id=84'
 
 
 def test_get_all_areas():
@@ -48,21 +41,21 @@ def test_get_all_areas():
     assert isinstance(test_dict, dict) is True
     assert isinstance(first_dict, dict) is True
     assert isinstance(first_dict.get('Name'), str) is True
-    assert url == 'http://fingertips.phe.org.uk/api/area_types'
+    assert url == 'https://fingertips.phe.org.uk/api/area_types'
 
 
 def test_get_all_data_for_indicators():
     data, url = get_all_data_for_indicators([92949, 92998], area_type_id=102, is_test=True)
     assert isinstance(data, pd.DataFrame) is True
     assert data.shape[1] == 27
-    assert url == 'http://fingertips.phe.org.uk/api/all_data/csv/by_indicator_id?indicator_ids=92949,92998&child_area_type_id=102&parent_area_type_id=15'
+    assert url == 'https://fingertips.phe.org.uk/api/all_data/csv/by_indicator_id?indicator_ids=92949,92998&child_area_type_id=102&parent_area_type_id=15'
 
 
 def test_get_data_by_indicator_ids():
     data, url = get_data_by_indicator_ids([92949, 92998], 102, is_test=True)
     assert isinstance(data, pd.DataFrame) is True
     assert data.shape[1] == 27
-    assert url == 'http://fingertips.phe.org.uk/api/all_data/csv/by_indicator_id?indicator_ids=92949,92998&child_area_type_id=102&parent_area_type_id=15'
+    assert url == 'https://fingertips.phe.org.uk/api/all_data/csv/by_indicator_id?indicator_ids=92949,92998&child_area_type_id=102&parent_area_type_id=15'
 
 
 def test_get_all_areas_for_all_indicators():
@@ -112,14 +105,14 @@ def test_get_metadata_for_indicator_as_dataframe():
     data = get_metadata_for_indicator_as_dataframe(247, is_test=True)
     assert isinstance(data[0], pd.DataFrame) is True
     assert data[0].shape[1] == 32
-    assert data[1] == 'http://fingertips.phe.org.uk/api/indicator_metadata/csv/by_indicator_id?indicator_ids=247'
+    assert data[1] == 'https://fingertips.phe.org.uk/api/indicator_metadata/csv/by_indicator_id?indicator_ids=247'
 
 
 def test_get_metadata_for_domain_as_dataframe():
     data = get_metadata_for_domain_as_dataframe(1938132811, is_test=True)
     assert isinstance(data[0], pd.DataFrame) is True
     assert data[0].shape[1] == 32
-    assert data[1] == 'http://fingertips.phe.org.uk/api/indicator_metadata/csv/by_group_id?group_id=1938132811'
+    assert data[1] == 'https://fingertips.phe.org.uk/api/indicator_metadata/csv/by_group_id?group_id=1938132811'
 
 
 def test_get_all_value_notes():

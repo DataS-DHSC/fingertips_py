@@ -60,25 +60,6 @@ def get_json_return_df(url, transpose=True):
     if transpose:
         df = df.transpose()
     return df
-
-
-def get_data_in_tuple(url):
-    """
-    :param url: A url to make a request
-    :return: A list of returned data in tuples
-    """
-    try:
-        req = requests.get(url)
-    except requests.exceptions.SSLError:
-        req = requests.get(url, verify=False)
-    json_resp = json.loads(req.content.decode('utf-8'))
-    tup_list = []
-    for item in json_resp:
-        tup_list.append([(k, v) for k, v in item.items()])
-    if isinstance(tup_list[0][0], str):
-        return [(t[1], t[0]) for t in tup_list]
-    else:
-        return tup_list
     
     
 def get_data_in_dict(url, key = None, value = None):
@@ -117,6 +98,6 @@ def deal_with_url_error(url):
     return df
 
 
-base_url = 'http://fingertips.phe.org.uk/api/'
+base_url = 'https://fingertips.phe.org.uk/api/'
 
 
